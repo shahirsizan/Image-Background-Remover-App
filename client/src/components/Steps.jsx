@@ -10,8 +10,7 @@ const Steps = () => {
 				</span>
 			</h1>
 
-			{/* <div className="flex items-start flex-wrap gap-4 mt-16 xl:mt-24 justify-center"> */}
-			<div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-16 xl:mt-24 justify-center text-lg">
+			<div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-16 xl:mt-24 justify-center text-sm sm:text-lg">
 				<div className="flex flex-col items-center justify-center gap-2 sm:gap-4 bg-white rounded-lg drop-shadow-lg p-4 sm:p-5">
 					<img src={assets.upload_icon} className="max-w-9" />
 					<div>
