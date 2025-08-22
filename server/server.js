@@ -13,6 +13,6 @@ app.use(express.json());
 app.use(cors());
 
 // API Routes
-app.get("/", (req, res) => res.send("API is working Sian!"));
+app.get("/", (req, res) => res.send("API is working."));
 
 app.listen(PORT, () => console.log("Server running on port: ", PORT));
