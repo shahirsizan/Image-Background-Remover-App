@@ -15,10 +15,10 @@ const BgSlider = () => {
 			</h1>
 
 			{/* slider */}
-			<div className="relative w-full max-w-3xl overflow-hidden m-auto rounded-xl">
+			<div className="relative border-2 max-sm:w-[200px] sm:w-[250px] md:w-[312px] overflow-hidden m-auto rounded-xl">
 				{/* image with bg */}
 				<img
-					src={assets.image_w_bg}
+					src={assets.withBG}
 					style={{
 						clipPath: `inset(0 ${100.2 - sliderPosition}% 0 0)`,
 					}}
@@ -26,7 +26,7 @@ const BgSlider = () => {
 
 				{/* image without bg */}
 				<img
-					src={assets.image_wo_bg}
+					src={assets.withoutBG}
 					className="absolute top-0 left-0"
 					style={{
 						clipPath: `inset(0 0 0 ${sliderPosition}%)`,

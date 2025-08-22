@@ -11,7 +11,7 @@ const Result = () => {
 					<div>
 						<p className="mb-2">Original image</p>
 						<img
-							src={assets.image_w_bg}
+							src={assets.withBG}
 							className="rounded-md w-full"
 						/>
 					</div>
@@ -22,7 +22,7 @@ const Result = () => {
 						<p className="mb-2">Background removed</p>
 						<div className="relative rounded-md border border-gray-600 bg-layer overflow-hidden">
 							<img
-								src={assets.image_wo_bg}
+								src={assets.withoutBG}
 								className="rounded-md w-full"
 							/>
 							{/* spinner */}

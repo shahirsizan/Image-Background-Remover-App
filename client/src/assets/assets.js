@@ -15,6 +15,8 @@ import twitter_icon from "./twitter_icon.svg";
 import profile_img_1 from "./profile_img_1.png";
 import profile_img_2 from "./profile_img_2.png";
 import credit_icon from "./credit_icon.png";
+import withBG from "./withBG.png";
+import withoutBG from "./withoutBG.png";
 
 // 2. make an object of the imports and export the object
 export const assets = {
@@ -32,6 +34,8 @@ export const assets = {
 	twitter_icon,
 	upload_btn_icon,
 	credit_icon,
+	withBG,
+	withoutBG,
 };
 
 export const plans = [

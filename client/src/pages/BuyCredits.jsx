@@ -14,11 +14,11 @@ const BuyCredits = () => {
 				Choose a plan
 			</h1>
 
-			<div className="flex flex-wrap justify-center gap-6">
+			<div className="flex flex-wrap justify-center gap-5">
 				{plans.map((item, index) => (
 					<div
 						key={index}
-						className="bg-white drop-shadow-lg rounded-lg px-6 sm:px-8 py-4 sm:py-12 text-left"
+						className="bg-white drop-shadow-lg rounded-lg px-7 py-5 text-left"
 					>
 						<img src={assets.logo_icon} width={50} />
 						<p className="mt-3 font-semibold">{item.id}</p>
@@ -26,7 +26,7 @@ const BuyCredits = () => {
 						<p className="mt-6">
 							<span>৳{item.price}</span> / {item.credits} credits
 						</p>
-						<button className="w-full bg-gray-800 text-white mt-8 text-sm border rounded-md py-3 min-w-52">
+						<button className="w-full bg-gray-800 text-white mt-8 text-sm border rounded-md py-3 min-w-35">
 							Purchase
 						</button>
 					</div>
