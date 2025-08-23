@@ -1,13 +1,23 @@
 import { assets } from "../assets/assets";
 import { useNavigate } from "react-router-dom";
 import { useClerk, UserButton, useUser } from "@clerk/clerk-react";
-// import { AppContext } from "../context/AppContext";
+import { useContext } from "react";
+import { AppContext } from "../context/AppContext";
+import { useEffect } from "react";
 
 const Navbar = () => {
+	const { credit, loadCreditsData } = useContext(AppContext);
+
 	const navigate = useNavigate();
 
 	const { openSignIn } = useClerk();
 	const { isSignedIn, user } = useUser();
+
+	useEffect(() => {
+		if (isSignedIn) {
+			loadCreditsData();
+		}
+	}, [isSignedIn]);
 
 	return (
 		<div className="flex items-center justify-between mx-4 py-3 lg:mx-44">
@@ -21,14 +31,17 @@ const Navbar = () => {
 			{/* right button */}
 			{isSignedIn ? (
 				<div className="flex items-center gap-2 sm:gap-3">
-					<button className="flex items-center gap-2 bg-blue-100 px-4 sm:px-7 py-1.5 sm:py-2.5 rounded-full hover:scale-105">
+					<button className="flex items-center gap-2 bg-blue-100 px-4 sm:px-7 py-1.5 sm:py-2.5 rounded-full hover:scale-105 cursor-pointer transition-all">
 						<img className="w-5" src={assets.credit_icon} />
-						<p className="text-sm text-gray-600">Credits</p>
+						<p className="text-xs sm:text-sm font-medium text-gray-600">
+							Credits: {credit}
+						</p>{" "}
 					</button>
 
 					<p className="text-gray-600 max-sm:hidden">
 						Hi, {user.fullName}
 					</p>
+
 					<UserButton />
 				</div>
 			) : (

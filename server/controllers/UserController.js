@@ -1,7 +1,7 @@
 import { Webhook } from "svix";
 import userModel from "../models/userModel.js";
 
-// API Controller Function to Manage Clerk User with database
+// API to sync Clerk User with mongo database
 // at http://localhost:4000/api/user/webhooks
 const clerkWebhooks = async (req, res) => {
 	try {
@@ -61,4 +61,19 @@ const clerkWebhooks = async (req, res) => {
 	}
 };
 
-export { clerkWebhooks };
+// API to get user available credits
+const userCredits = async (req, res) => {
+	// console.log("ami UserController->userCredits e 1");
+
+	try {
+		const { clerkId } = req.headers;
+		const userData = await userModel.findOne({ clerkId: clerkId });
+		console.log("userData :>> ", userData);
+		res.json({ success: true, userCredits: userData.creditBalance });
+	} catch (error) {
+		console.log("error :>> ", error.message);
+		res.json({ success: false, message: error.message });
+	}
+};
+
+export { clerkWebhooks, userCredits };
