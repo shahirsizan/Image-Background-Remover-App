@@ -24,6 +24,8 @@ const Header = () => {
 				<div className="text-center sm:mb-16 sm:mt-14">
 					<input
 						onChange={(e) => {
+							console.log(e.target.files[0]);
+
 							removeBg(e.target.files[0]);
 						}}
 						type="file"

@@ -70,10 +70,12 @@ const AppContextProvider = (props) => {
 
 	const removeBg = async (image) => {
 		try {
+			// if not signed in
 			if (!isSignedIn) {
 				return openSignIn();
 			}
 
+			// if signed in
 			setImage(image);
 			setResultImage(false);
 			navigate("/result");
@@ -81,7 +83,7 @@ const AppContextProvider = (props) => {
 			const token = await getToken();
 
 			const formData = new FormData();
-			image && formData.append("image", image);
+			formData.append("image", image);
 
 			const { data } = await axios.post(
 				backendUrl + "/api/image/remove-bg",
