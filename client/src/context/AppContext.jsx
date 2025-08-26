@@ -35,7 +35,7 @@ const AppContextProvider = (props) => {
 					emni: "faltu",
 				},
 			});
-			// console.log("response : ", response);
+			console.log("loadCreditsData -> response : ", response);
 
 			// if success
 			if (response.data.success) {
@@ -93,10 +93,10 @@ const AppContextProvider = (props) => {
 
 			if (data.success) {
 				setResultImage(data.resultImage);
-				data.creditBalance && setCredit(data.creditBalance);
+				setCredit(data.creditBalance);
 			} else {
 				toast.error(data.message);
-				data.creditBalance && setCredit(data.creditBalance);
+				setCredit(data.creditBalance);
 				if (data.creditBalance === 0) {
 					navigate("/buy");
 				}
