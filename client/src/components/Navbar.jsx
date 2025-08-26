@@ -31,7 +31,12 @@ const Navbar = () => {
 			{/* right button */}
 			{isSignedIn ? (
 				<div className="flex items-center gap-2 sm:gap-3">
-					<button className="flex items-center gap-2 bg-blue-100 px-4 sm:px-7 py-1.5 sm:py-2.5 rounded-full hover:scale-105 cursor-pointer transition-all">
+					<button
+						onClick={() => {
+							navigate("/buy");
+						}}
+						className="flex items-center gap-2 bg-blue-100 px-4 sm:px-7 py-1.5 sm:py-2.5 rounded-full hover:scale-105 cursor-pointer transition-all"
+					>
 						<img className="w-5" src={assets.credit_icon} />
 						<p className="text-xs sm:text-sm font-medium text-gray-600">
 							Credits: {credit}

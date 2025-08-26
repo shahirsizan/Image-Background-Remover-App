@@ -16,7 +16,7 @@ export const removeBgImage = async (req, res) => {
 		if (user.creditBalance === 0) {
 			return res.json({
 				success: false,
-				message: "No Credit Balanse",
+				message: "No Credit Balance",
 				creditBalance: user.creditBalance,
 			});
 		}

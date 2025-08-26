@@ -35,7 +35,7 @@ const AppContextProvider = (props) => {
 					emni: "faltu",
 				},
 			});
-			console.log("loadCreditsData -> response : ", response);
+			// console.log("loadCreditsData -> response : ", response);
 
 			// if success
 			if (response.data.success) {
@@ -115,6 +115,8 @@ const AppContextProvider = (props) => {
 		image,
 		setImage,
 		removeBg,
+		resultImage,
+		setResultImage,
 	};
 
 	return (
