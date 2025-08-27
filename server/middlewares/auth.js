@@ -5,7 +5,7 @@ const authUser = async (req, res, next) => {
 
 	try {
 		const { token } = req.headers;
-		console.log("req.headers is :>> ", req.headers);
+		// console.log("req.headers is :>> ", req.headers);
 
 		if (!token) {
 			return res.json({
@@ -15,7 +15,7 @@ const authUser = async (req, res, next) => {
 		}
 
 		const token_decode = jwt.decode(token);
-		console.log("after decoding token: ", token_decode);
+		// console.log("after decoding token: ", token_decode);
 
 		req.headers.clerkId = token_decode.clerkId;
 		next();
