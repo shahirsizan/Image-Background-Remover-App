@@ -14,7 +14,7 @@ const BuyCredits = () => {
 	const pay = async (e, planId) => {
 		try {
 			const token = await getToken();
-			const { data } = await axios.post(
+			await axios.post(
 				`https://image-background-remover-app-gs-aug2025-l4f003gcy.vercel.app/api/bkash/payment/create`,
 				{
 					planId: planId,
