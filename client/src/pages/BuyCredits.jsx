@@ -1,7 +1,31 @@
 import React from "react";
 import { assets, plans } from "../assets/assets";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@clerk/clerk-react";
+import axios from "axios";
+import { useContext } from "react";
+import { AppContext } from "../context/AppContext";
 
 const BuyCredits = () => {
+	const navigate = useNavigate();
+	const { getToken } = useAuth();
+	const { backendUrl } = useContext(AppContext);
+
+	const pay = async (e, planId) => {
+		try {
+			const token = await getToken();
+			const { data } = await axios.post(
+				`https://image-background-remover-app-gs-aug2025-l4f003gcy.vercel.app/api/bkash/payment/create`,
+				{
+					planId: planId,
+				},
+				{ headers: { token: token } }
+			);
+		} catch (error) {
+			console.log("BuyCredits.jsx -> pay() error: ", error);
+		}
+	};
+
 	return (
 		<div className="min-h-[75vh] text-center pt-14 mb-10 lg:px-44">
 			<div className="flex justify-center items-center">
@@ -26,7 +50,12 @@ const BuyCredits = () => {
 						<p className="mt-6">
 							<span>৳{item.price}</span> / {item.credits} credits
 						</p>
-						<button className="w-full bg-gray-800 text-white mt-8 text-sm border rounded-md py-3 min-w-35">
+						<button
+							className="w-full bg-gray-800 text-white mt-8 text-sm border rounded-md py-3 min-w-35"
+							onClick={(e) => {
+								pay(e, item.id);
+							}}
+						>
 							Purchase
 						</button>
 					</div>

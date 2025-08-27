@@ -5,6 +5,8 @@ import BuyCredits from "./pages/BuyCredits";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { ToastContainer, toast } from "react-toastify";
+import SuccessPage from "./pages/SuccessPage";
+import ErrorPage from "./pages/ErrorPage";
 
 const App = () => {
 	return (
@@ -15,6 +17,8 @@ const App = () => {
 				<Route path="/" element={<Home />} />
 				<Route path="/result" element={<Result />} />
 				<Route path="/buy" element={<BuyCredits />} />
+				<Route path="/success/*" element={<SuccessPage />} />
+				<Route path="/error" element={<ErrorPage />} />
 			</Routes>
 			<Footer />
 		</div>

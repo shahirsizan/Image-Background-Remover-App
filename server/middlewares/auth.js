@@ -1,11 +1,8 @@
 import jwt from "jsonwebtoken";
 
-// Middleware funciton to decode jwt token to clerkId
 const authUser = async (req, res, next) => {
-	// console.log("ami auth.js e 1");
-
 	try {
-		const { token, ajaira, emni } = req.headers;
+		const { token } = req.headers;
 		console.log("req.headers is :>> ", req.headers);
 
 		if (!token) {

@@ -4,6 +4,7 @@ import cors from "cors";
 import connectDB from "./configs/mongodb.js";
 import userRouter from "./routes/userRoutes.js";
 import imageRouter from "./routes/imagesRoutes.js";
+import bkashRouter from "./routes/bkashRoutes.js";
 
 // App Config
 const PORT = process.env.PORT || 4000;
@@ -18,5 +19,6 @@ app.use(cors());
 app.get("/", (req, res) => res.send("API is working."));
 app.use("/api/user", userRouter);
 app.use("/api/image", imageRouter);
+app.use("/api/bkash", bkashRouter);
 
 app.listen(PORT, () => console.log("Server running on port: ", PORT));
