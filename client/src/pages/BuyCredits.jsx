@@ -17,7 +17,7 @@ const BuyCredits = () => {
 			console.log("token in BuyCredits.jsx: ", token);
 
 			await axios.post(
-				`https://image-background-remover-app-gs-aug2025-l4f003gcy.vercel.app/api/bkash/payment/create`,
+				"https://image-background-remover-app-gs-aug.vercel.app/api/bkash/payment/create",
 				{
 					planId: planId,
 				},
