@@ -3,7 +3,7 @@ import axios from "axios";
 import globals from "node-global-storage";
 import { v4 as uuidv4 } from "uuid";
 import mongoose from "mongoose";
-import userModel from "../models/userModel";
+import userModel from "../models/userModel.js";
 
 // after passing through auth.js, request from frontend now looks like:
 // const { data } = await axios.post(
