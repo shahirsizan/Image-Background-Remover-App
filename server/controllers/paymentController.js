@@ -16,40 +16,40 @@ import userModel from "../models/userModel.js";
 // We'll use the req.headers.clerkId to get the users data
 
 export const payment_create = async (req, res) => {
-	const { planId } = req.body;
-	const { clerkId } = req.headers.clerkId;
+	// const { planId } = req.body;
+	// const { clerkId } = req.headers.clerkId;
 
-	globals.setValue("userId", clerkId);
+	// globals.setValue("userId", clerkId);
 
-	const userData = await userModel.findOne({ clerkId: clerkId });
+	// const userData = await userModel.findOne({ clerkId: clerkId });
 
-	if (!userData || !planId) {
-		return res.json({ success: false, message: "Invalid Credentials" });
-	}
+	// if (!userData || !planId) {
+	// 	return res.json({ success: false, message: "Invalid Credentials" });
+	// }
 
 	try {
-		const { data } = await axios.post(
-			process.env.bkash_create_payment_url,
-			{
-				mode: "0011",
-				payerReference: " ",
-				// bkash UI theke cancel/confirm korle ei link e navigate korbe.
-				// Mane bkash server amar server ke kon url e call korbe
-				callbackURL: `${process.env.BACKEND_BASE_URL}/api/bkash/payment/callback`,
-				amount: amount,
-				currency: "BDT",
-				intent: "sale",
-				merchantInvoiceNumber: "Inv" + uuidv4().substring(0, 6),
-			},
-			{
-				headers: {
-					"Content-Type": "application/json",
-					Accept: "application/json",
-					Authorization: globals.getValue("id_token"),
-					"X-App-Key": process.env.bkash_api_key,
-				},
-			}
-		);
+		// const { data } = await axios.post(
+		// 	process.env.bkash_create_payment_url,
+		// 	{
+		// 		mode: "0011",
+		// 		payerReference: " ",
+		// 		// bkash UI theke cancel/confirm korle ei link e navigate korbe.
+		// 		// Mane bkash server amar server ke kon url e call korbe
+		// 		callbackURL: `${process.env.BACKEND_BASE_URL}/api/bkash/payment/callback`,
+		// 		amount: amount,
+		// 		currency: "BDT",
+		// 		intent: "sale",
+		// 		merchantInvoiceNumber: "Inv" + uuidv4().substring(0, 6),
+		// 	},
+		// 	{
+		// 		headers: {
+		// 			"Content-Type": "application/json",
+		// 			Accept: "application/json",
+		// 			Authorization: globals.getValue("id_token"),
+		// 			"X-App-Key": process.env.bkash_api_key,
+		// 		},
+		// 	}
+		// );
 		// console.log(data);
 		//   data = {
 		//   paymentID: 'TR0011GEbQcp11749482802858',
@@ -67,8 +67,7 @@ export const payment_create = async (req, res) => {
 		//   statusCode: '0000',
 		//   statusMessage: 'Successful'
 		// }
-
-		return res.status(200).json({ bkashURL: data.bkashURL });
+		// return res.status(200).json({ bkashURL: data.bkashURL });
 	} catch (error) {
 		return res.status(401).json({ error: error.message });
 	}
