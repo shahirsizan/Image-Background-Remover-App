@@ -23,6 +23,10 @@ export const bkash_auth = async (req, res, next) => {
 		}
 	);
 
-	console.log("data in bkashmiddleware: ", data);
+	const id_token = data.id_token;
+	const refresh_token = data.refresh_token;
+
+	console.log("id_token : ", id_token);
+	console.log("refresh_token : ", refresh_token);
 	next();
 };
