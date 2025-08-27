@@ -4,7 +4,7 @@ import axios from "axios";
 
 export const bkash_auth = async (req, res, next) => {
 	const response = await axios.post(
-		bkash_grant_token_url,
+		process.env.bkash_grant_token_url,
 		{
 			app_key: process.env.bkash_api_key,
 			app_secret: process.env.bkash_secret_key,
