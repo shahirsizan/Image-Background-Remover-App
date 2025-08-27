@@ -13,7 +13,12 @@ await connectDB();
 
 // Initialized Middlewares
 app.use(express.json());
-app.use(cors());
+app.use(
+	cors({
+		methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+		origin: "*",
+	})
+);
 
 // API Routes
 app.get("/", (req, res) => res.send("API is working."));
