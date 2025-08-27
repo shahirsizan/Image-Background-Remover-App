@@ -3,7 +3,9 @@ import axios from "axios";
 // here we will utilize the `req.header`. No need to use third party library.
 
 export const bkash_auth = async (req, res, next) => {
-	const response = await axios.post(
+	console.log("inside bkash middleware");
+
+	const { data } = await axios.post(
 		process.env.bkash_grant_token_url,
 		{
 			app_key: process.env.bkash_api_key,
@@ -19,5 +21,5 @@ export const bkash_auth = async (req, res, next) => {
 		}
 	);
 
-	console.log("response in bkashmiddleware: ", response);
+	console.log("data in bkashmiddleware: ", data);
 };
