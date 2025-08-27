@@ -60,9 +60,10 @@ export const removeBgImage = async (req, res) => {
 				responseType: "arraybuffer",
 			}
 		);
+		// console.log("imageController -> api call -> headers: ", headers);
 
 		const base64Image = Buffer.from(data, "binary").toString("base64");
-		const resultImage = `data:${headers["Content-Type"]};base64,${base64Image}`;
+		const resultImage = `data:${headers["content-type"]};base64,${base64Image}`;
 
 		await userModel.findByIdAndUpdate(user._id, {
 			creditBalance: user.creditBalance - 1,
