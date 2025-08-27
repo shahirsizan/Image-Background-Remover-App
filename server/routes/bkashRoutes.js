@@ -1,6 +1,6 @@
 import express from "express";
-import authUser from "../middlewares/auth";
-import { payment_create } from "../controllers/paymentController";
+import authUser from "../middlewares/auth.js";
+import { payment_create } from "../controllers/paymentController.js";
 
 const bkashRouter = express.Router();
 
