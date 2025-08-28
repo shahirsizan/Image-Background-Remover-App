@@ -3,8 +3,8 @@ import axios from "axios";
 // here we will utilize the `req.header`. No need to use third party library.
 
 export const bkash_auth = async (req, res, next) => {
-	// console.log("inside bkash middleware"); //worked in vercel log
-	// ⚠️⚠️⚠️ CAUTION. Because the backend is hosted in vercel and env variables not defined in vercel,
+	// ⚠️⚠️⚠️ CAUTION. Because the backend is hosted in vercel
+	// and env variables not defined in vercel yet,
 	// have to explicitely write the env variables here
 
 	const { data } = await axios.post(
@@ -25,9 +25,11 @@ export const bkash_auth = async (req, res, next) => {
 
 	const id_token = data.id_token;
 	const refresh_token = data.refresh_token;
+	// console.log("id_token : ", id_token);
+	// console.log("refresh_token : ", refresh_token);
+	// OK in vercel log
+	req.bkash.id_token = id_token;
+	req.bkash.refresh_token = refresh_token;
 
-	console.log("id_token : ", id_token);
-	console.log("refresh_token : ", refresh_token);
-	// kaj hoise. Shokale erpor theke dhorte hobe
 	next();
 };
