@@ -28,5 +28,6 @@ export const bkash_auth = async (req, res, next) => {
 
 	console.log("id_token : ", id_token);
 	console.log("refresh_token : ", refresh_token);
+	// kaj hoise. Shokale erpor theke dhorte hobe
 	next();
 };

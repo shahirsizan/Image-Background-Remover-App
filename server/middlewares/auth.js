@@ -15,9 +15,14 @@ const authUser = async (req, res, next) => {
 		}
 
 		const token_decode = jwt.decode(token);
-		// console.log("after decoding token: ", token_decode);
+		const clerkId = token_decode.clerkId;
 
-		req.headers.clerkId = token_decode.clerkId;
+		const user = await userModel.findOne({ clerkId: clerkId });
+		if (!user) {
+			return res.json({ success: false, message: "User not found" });
+		}
+
+		req.user = user;
 		next();
 	} catch (error) {
 		console.log("error :>>>> ", error.message);

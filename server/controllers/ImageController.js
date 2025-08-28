@@ -5,12 +5,7 @@ import userModel from "../models/userModel.js";
 
 export const removeBgImage = async (req, res) => {
 	try {
-		// user ke khuje ber koro
-		const { clerkId } = req.headers;
-		const user = await userModel.findOne({ clerkId: clerkId });
-		if (!user) {
-			return res.json({ success: false, message: "User not found" });
-		}
+		const { user } = req;
 
 		// user er balance check koro
 		if (user.creditBalance === 0) {
@@ -65,14 +60,18 @@ export const removeBgImage = async (req, res) => {
 		const base64Image = Buffer.from(data, "binary").toString("base64");
 		const resultImage = `data:${headers["content-type"]};base64,${base64Image}`;
 
-		await userModel.findByIdAndUpdate(user._id, {
-			creditBalance: user.creditBalance - 1,
-		});
+		// Instead of: await userModel.findByIdAndUpdate(user._id, { creditBalance: user.creditBalance - 1 });
+		// Use an atomic operator:
+		const updatedUser = await userModel.findByIdAndUpdate(
+			user._id,
+			{ $inc: { creditBalance: -1 } }, // Use $inc to atomically decrement
+			{ new: true } // Return the updated document
+		);
 
 		res.json({
 			success: true,
 			resultImage: resultImage,
-			creditBalance: user.creditBalance - 1,
+			creditBalance: updatedUser.creditBalance,
 			message: "Background Removed",
 		});
 	} catch (error) {
