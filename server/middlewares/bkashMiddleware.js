@@ -28,8 +28,10 @@ export const bkash_auth = async (req, res, next) => {
 	// console.log("id_token : ", id_token);
 	// console.log("refresh_token : ", refresh_token);
 	// OK in vercel log
-	req.bkash.id_token = id_token;
-	req.bkash.refresh_token = refresh_token;
+	req.bkash = {
+		id_token: id_token,
+		refresh_token: refresh_token,
+	};
 
 	next();
 };
