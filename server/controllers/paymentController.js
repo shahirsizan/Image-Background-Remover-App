@@ -1,5 +1,5 @@
 import axios from "axios";
-// import paymentModel from "../model/paymentModel.js";
+import transactionModel from "../models/transactionModel.js";
 import globals from "node-global-storage";
 import { v4 as uuidv4 } from "uuid";
 import mongoose from "mongoose";
@@ -42,25 +42,23 @@ export const payment_create = async (req, res) => {
 	switch (planId) {
 		case "Basic":
 			plan = "Basic";
-			credits = 100;
+			credits = 2;
 			amount = 10;
 			break;
 		case "Advanced":
 			plan = "Basic";
-			credits = 500;
-			amount = 50;
+			credits = 3;
+			amount = 20;
 			break;
 		case "Business":
 			plan = "Basic";
-			credits = 5000;
-			amount = 250;
+			credits = 5;
+			amount = 30;
 			break;
-
 		default:
 			break;
 	}
-
-	/** Returns the number of milliseconds elapsed since midnight, January 1, 1970 Universal Coordinated Time (UTC). */
+	/** Returns the number of milliseconds elapsed since January 1, 1970 */
 	date = Date.now();
 
 	const transactionData = {
@@ -71,6 +69,8 @@ export const payment_create = async (req, res) => {
 		date,
 	};
 
+	const newTransaction = await transactionModel.create(transactionData);
+
 	try {
 		const { data } = await axios.post(
 			process.env.bkash_create_payment_url,
@@ -79,8 +79,8 @@ export const payment_create = async (req, res) => {
 				payerReference: " ",
 				// bkash UI theke cancel/confirm korle ei link e navigate korbe.
 				// Mane bkash server amar server ke kon url e call korbe
-				callbackURL: `${process.env.BACKEND_BASE_URL}/api/bkash/payment/callback`,
-				amount: amount,
+				callbackURL: `https://image-background-remover-app-gs-aug.vercel.app/api/bkash/payment/callback`,
+				amount: transactionData.amount,
 				currency: "BDT",
 				intent: "sale",
 				merchantInvoiceNumber: "Inv" + uuidv4().substring(0, 6),
@@ -112,8 +112,16 @@ export const payment_create = async (req, res) => {
 		//   statusMessage: 'Successful'
 		// }
 
-		return res.status(200).json({ bkashURL: data.bkashURL });
+		console.log(data);
+
+		// return res.status(200).json({ bkashURL: data.bkashURL });
+		// response back the `bkashURL` to frontend so that
+		// user can be redirected to bkash UI.
+		// note: upore `callbackURL` hocche bkash UI er kaj sheshe
+		// bkash user ke jekhane redirected korbe setar URL.
 	} catch (error) {
 		return res.status(401).json({ error: error.message });
 	}
 };
+
+export const call_back = async (req, res) => {};

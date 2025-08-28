@@ -1,6 +1,6 @@
 import express from "express";
 import authUser from "../middlewares/auth.js";
-import { payment_create } from "../controllers/paymentController.js";
+import { call_back, payment_create } from "../controllers/paymentController.js";
 import { bkash_auth } from "../middlewares/bkashMiddleware.js";
 
 const bkashRouter = express.Router();
@@ -14,6 +14,7 @@ const bkashRouter = express.Router();
 //     { headers: { token: token } }
 // );
 
-bkashRouter.post("/payment/create", authUser, bkash_auth, payment_create);
+bkashRouter.post("/payment/create", bkash_auth, payment_create);
+bkashRouter.get("/payment/callback", bkash_auth, call_back);
 
 export default bkashRouter;
