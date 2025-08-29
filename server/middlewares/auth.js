@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import userModel from "../models/userModel.js";
 
 const authUser = async (req, res, next) => {
-	console.log("I'm in auth.js!");
+	// console.log("I'm in auth.js!");
 
 	try {
 		const { token } = req.headers;
@@ -15,6 +15,8 @@ const authUser = async (req, res, next) => {
 			});
 		}
 
+		// console.log("OK");
+
 		const token_decode = jwt.decode(token);
 		const clerkId = token_decode.clerkId;
 
@@ -24,6 +26,9 @@ const authUser = async (req, res, next) => {
 		}
 
 		req.user = user;
+		// console.log("OK");
+		// console.log("req.user is: ", req.user);
+
 		next();
 	} catch (error) {
 		console.log("error :>>>> ", error.message);

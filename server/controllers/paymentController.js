@@ -1,12 +1,13 @@
 import axios from "axios";
-import transactionModel from "../models/transactionModel.js";
-import globals from "node-global-storage";
 import { v4 as uuidv4 } from "uuid";
-import mongoose from "mongoose";
 import userModel from "../models/userModel.js";
+import transactionModel from "../models/transactionModel.js";
+
+var clerkId;
+var transactionData;
 
 export const payment_create = async (req, res) => {
-	// console.log("inside paymentController.js -> req is: ", req);
+	// console.log("inside paymentController.js -> req.user is: ", req.user);
 	// THE `req` OBJECT:
 	// {
 	// ...
@@ -35,8 +36,10 @@ export const payment_create = async (req, res) => {
 	// }
 
 	const { planId } = req.body;
-	const { clerkId } = req.user;
+	// clerkId = req.user.clerkId;
 	const { id_token } = req.bkash;
+
+	// console.log("oiiiiiiiiii");
 
 	let plan, credits, amount;
 	switch (planId) {
@@ -59,28 +62,23 @@ export const payment_create = async (req, res) => {
 			break;
 	}
 	/** Returns the number of milliseconds elapsed since January 1, 1970 */
-	date = Date.now();
+	const date = Date.now();
 
-	const transactionData = {
-		clerkId,
-		plan,
-		credits,
-		amount,
-		date,
-	};
-
-	const newTransaction = await transactionModel.create(transactionData);
+	// console.log("heyyyyyyyyyyy");
 
 	try {
 		const { data } = await axios.post(
-			process.env.bkash_create_payment_url,
+			"https://tokenized.sandbox.bka.sh/v1.2.0-beta/tokenized/checkout/create",
 			{
 				mode: "0011",
 				payerReference: " ",
 				// bkash UI theke cancel/confirm korle ei link e navigate korbe.
 				// Mane bkash server amar server ke kon url e call korbe
-				callbackURL: `https://image-background-remover-app-gs-aug.vercel.app/api/bkash/payment/callback`,
-				amount: transactionData.amount,
+
+				// callbackURL: `https://image-background-remover-app-gs-aug.vercel.app/api/bkash/payment/callback`,
+				// hobe niche
+				callbackURL: `http://localhost:4000/api/bkash/payment/callback`,
+				amount: amount,
 				currency: "BDT",
 				intent: "sale",
 				merchantInvoiceNumber: "Inv" + uuidv4().substring(0, 6),
@@ -94,28 +92,43 @@ export const payment_create = async (req, res) => {
 				},
 			}
 		);
+
 		// console.log(data);
 		//   data = {
-		//   paymentID: 'TR0011GEbQcp11749482802858',
-		//   bkashURL: 'https://sandbox.payment.bkash.com/?paymentId=TR0011GEbQcp11749482802858&hash=M4wj!h2dAvqDScpymCZoFNic1Rp(ZGhmUs2Ll-PGBTA6Y3DjwqW.Ai2UVqsXDZE7R8vKTNqtS!Bk*jJh)eaQ8FF(IsuXSHVrQz-.1749482802858&mode=0011&apiVersion=v1.2.0-beta/',
-		//   callbackURL: 'http://localhost:5000/bkash/payment/callback',
-		//   successCallbackURL: 'http://localhost:5000/bkash/payment/callback?paymentID=TR0011GEbQcp11749482802858&status=success&signature=WL3lwYQlWP',
-		//   failureCallbackURL: 'http://localhost:5000/bkash/payment/callback?paymentID=TR0011GEbQcp11749482802858&status=failure&signature=WL3lwYQlWP',
-		//   cancelledCallbackURL: 'http://localhost:5000/bkash/payment/callback?paymentID=TR0011GEbQcp11749482802858&status=cancel&signature=WL3lwYQlWP',
-		//   amount: '480',
+		//   paymentID: 'TR0011eq4dc4w1756379944796',
+		//   bkashURL: 'https://sandbox.payment.bkash.com/?paymentId=TR0011eq4dc4w1756379944796&hash=m*)*HJbzj8931BEgNmqFrv4IMTXbH.aAS4ah.4wCAd2KeP1Gds1.NjhLQXz((Ploqb!aTzwi8*0!3ZlE9I!HHGkeDL7R)yJU.xJB1756379944797&mode=0011&apiVersion=v1.2.0-beta/',
+		//   callbackURL: 'http://localhost:4000/api/bkash/payment/callback',
+		//   successCallbackURL: 'http://localhost:4000/api/bkash/payment/callback?paymentID=TR0011eq4dc4w1756379944796&status=success&signature=D6qnEjXrWp',
+		//   failureCallbackURL: 'http://localhost:4000/api/bkash/payment/callback?paymentID=TR0011eq4dc4w1756379944796&status=failure&signature=D6qnEjXrWp',
+		//   cancelledCallbackURL: 'http://localhost:4000/api/bkash/payment/callback?paymentID=TR0011eq4dc4w1756379944796&status=cancel&signature=D6qnEjXrWp',
+		//   amount: '10',
 		//   intent: 'sale',
 		//   currency: 'BDT',
-		//   paymentCreateTime: '2025-06-09T21:26:42:858 GMT+0600',
+		//   paymentCreateTime: '2025-08-28T17:19:04:796 GMT+0600',
 		//   transactionStatus: 'Initiated',
-		//   merchantInvoiceNumber: 'Inva633b5',
+		//   merchantInvoiceNumber: 'Inv22e0f6',
 		//   statusCode: '0000',
 		//   statusMessage: 'Successful'
 		// }
 
-		console.log(data);
+		// console.log("heiiiiiiiiiyaaaaaaaa");
 
-		// return res.status(200).json({ bkashURL: data.bkashURL });
-		// response back the `bkashURL` to frontend so that
+		transactionData = {
+			date: date,
+			paymentId: data.paymentID,
+			clerkId: req.user.clerkId,
+			plan: plan,
+			amount: data.amount,
+			credits: credits,
+		};
+
+		// console.log("transactionData: ", transactionData);
+
+		const newTransaction = await transactionModel.create(transactionData);
+		// console.log("newTransaction in db: ", newTransaction);
+
+		return res.status(200).json({ bkashURL: data.bkashURL });
+		// response back the `bkashURL` to frontend so
 		// user can be redirected to bkash UI.
 		// note: upore `callbackURL` hocche bkash UI er kaj sheshe
 		// bkash user ke jekhane redirected korbe setar URL.
@@ -124,4 +137,120 @@ export const payment_create = async (req, res) => {
 	}
 };
 
-export const call_back = async (req, res) => {};
+export const call_back = async (req, res) => {
+	// after successful payment
+	// `http://localhost:4000/api/bkash/payment/callback?paymentID=TR00117RbXHg81756392147281&status=success&signature=OUqqZdgmIl&apiVersion=1.2.0-beta/`
+	// will get called. Retrieve the url params
+	const { paymentID, status } = req.query;
+
+	// if status not-success, redirect to error page
+	if (status === "cancel" || status === "failure") {
+		return res.redirect(`http://localhost:5173/error?message=${status}`);
+	}
+
+	// if status success, call executePayment API
+	if (status === "success") {
+		try {
+			const id_token = req.bkash.id_token;
+
+			const { data } = await axios.post(
+				"https://tokenized.sandbox.bka.sh/v1.2.0-beta/tokenized/checkout/execute",
+				{
+					paymentID: paymentID,
+				},
+				{
+					headers: {
+						Accept: "application/json",
+						Authorization: id_token,
+						"X-App-Key": "4f6o0cjiki2rfm34kfdadl1eqq",
+					},
+				}
+			);
+
+			// `data` after payment-execution:
+			// console.log("Data after payment-execution: ", data);
+			// 			{
+			//   paymentID: 'TR0011umOKR5N1756397920069',
+			//   trxID: 'CHS70NBSE1',
+			//   transactionStatus: 'Completed',
+			//   amount: '30',
+			//   currency: 'BDT',
+			//   intent: 'sale',
+			//   paymentExecuteTime: '2025-08-28T22:18:55:592 GMT+0600',
+			//   merchantInvoiceNumber: 'Inv8c8e60',
+			//   payerType: 'Customer',
+			//   payerReference: ' ',
+			//   customerMsisdn: '01929918378',
+			//   payerAccount: '01929918378',
+			//   maxRefundableAmount: '30',
+			//   statusCode: '0000',
+			//   statusMessage: 'Successful'
+			// }
+
+			if (data.statusMessage === "Successful") {
+				// payment complete
+
+				// fetch the transaction document from db (created in payment_create())
+				const transactionDataInDB = await transactionModel.findOne({
+					paymentId: data.paymentID,
+				});
+				// console.log("transactionDataInDB: ", transactionDataInDB);
+				// 	{
+				//     _id: new ObjectId('68b0829ca91fdd97d8e9b735'),
+				//     date: 1756398236016,
+				//     paymentId: 'TR00113pUlYLu1756398236179',
+				//     clerkId: 'user_31pWdEcWz5uop6sAXqViX9RAnGY',
+				//     plan: 'Basic',
+				//     amount: 10,
+				//     credits: 2,
+				//     payment: false,
+				//     __v: 0
+				//   }
+
+				// Time to add credit points to user-document to be shown in Navbar
+				const userData = await userModel.findOne({
+					clerkId: transactionDataInDB.clerkId,
+				});
+				// console.log("userData: ", userData);
+
+				const updatedUserDataInDB = await userModel.findOneAndUpdate(
+					{ clerkId: userData.clerkId },
+					{
+						$inc: {
+							creditBalance: transactionDataInDB.credits,
+						},
+					},
+					{ new: true }
+				);
+				console.log("updatedUserDataInDB: ", updatedUserDataInDB);
+
+				// Now make the payment status `true`
+				await transactionModel.updateOne(
+					{
+						paymentId: transactionDataInDB.paymentId,
+					},
+					{ payment: true }
+				);
+
+				res.redirect(
+					`http://localhost:5173/success?message=${data.statusMessage}&amount=${data.amount}&creditsBought=${transactionData.credits}&creditsNow=${updatedUserDataInDB.creditBalance}`
+				);
+
+				// `executePayment` successfull, redirect to success page with trxId
+				// return res.redirect(
+				// 	`${process.env.FRONTEND_BASE_URL}/success?message=${status}&trxId=${data.trxID}`
+				// );
+			} else {
+				// `executePayment` not successfull
+				// return res.redirect(
+				// 	`${process.env.FRONTEND_BASE_URL}/error?message=${status}&messageFromMe=executePaymentUnsuccessfull`
+				// );
+			}
+		} catch (error) {
+			return res.redirect(
+				// error while performing `executePayment`
+				`${process.env.FRONTEND_BASE_URL}/error?message=${error.message}`
+			);
+		}
+	}
+};

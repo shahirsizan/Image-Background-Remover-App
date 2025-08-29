@@ -14,7 +14,8 @@ const bkashRouter = express.Router();
 //     { headers: { token: token } }
 // );
 
-bkashRouter.post("/payment/create", bkash_auth, payment_create);
+bkashRouter.post("/payment/create", authUser, bkash_auth, payment_create);
+// no middleware needed because the route will be called upon directly by bkash system
 bkashRouter.get("/payment/callback", bkash_auth, call_back);
 
 export default bkashRouter;

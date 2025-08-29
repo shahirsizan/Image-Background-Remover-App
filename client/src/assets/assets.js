@@ -41,20 +41,20 @@ export const assets = {
 export const plans = [
 	{
 		id: "Basic",
-		price: 100,
-		credits: 200,
+		price: 10,
+		credits: 2,
 		desc: "Best for personal use.",
 	},
 	{
 		id: "Advanced",
-		price: 150,
-		credits: 500,
+		price: 20,
+		credits: 3,
 		desc: "Best for business use.",
 	},
 	{
 		id: "Business",
-		price: 200,
-		credits: 2000,
+		price: 30,
+		credits: 5,
 		desc: "Best for enterprise use.",
 	},
 ];

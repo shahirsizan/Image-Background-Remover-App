@@ -8,18 +8,21 @@ const BuyCredits = () => {
 	const pay = async (e, planId) => {
 		try {
 			const token = await getToken();
-			console.log("token in BuyCredits.jsx: ", token);
+			// console.log("token in BuyCredits.jsx: ", token);
 
-			const x = await axios.post(
-				"https://image-background-remover-app-gs-aug.vercel.app/api/bkash/payment/create",
+			// "https://image-background-remover-app-gs-aug.vercel.app/api/bkash/payment/create" dite hobe niche
+			const { data } = await axios.post(
+				"http://localhost:4000/api/bkash/payment/create",
 				{
 					planId: planId,
 				},
 				{ headers: { token: token } }
 			);
-			console.log("x: ", x);
+
+			// redirect the user to bkash UI
+			window.location.href = data.bkashURL;
 		} catch (error) {
-			console.log("BuyCredits.jsx -> pay() error: ", error);
+			console.log("Error: BuyCredits.jsx -> pay(): ", error);
 		}
 	};
 

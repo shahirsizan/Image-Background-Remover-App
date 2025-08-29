@@ -6,6 +6,7 @@ export const bkash_auth = async (req, res, next) => {
 	// ⚠️⚠️⚠️ CAUTION. Because the backend is hosted in vercel
 	// and env variables not defined in vercel yet,
 	// have to explicitely write the env variables here
+	// console.log("okkkkkk");
 
 	const { data } = await axios.post(
 		"https://tokenized.sandbox.bka.sh/v1.2.0-beta/tokenized/checkout/token/grant",
@@ -32,6 +33,8 @@ export const bkash_auth = async (req, res, next) => {
 		id_token: id_token,
 		refresh_token: refresh_token,
 	};
+
+	// console.log("okkkkkk");
 
 	next();
 };
