@@ -232,24 +232,17 @@ export const call_back = async (req, res) => {
 					{ payment: true }
 				);
 
-				res.redirect(
+				return res.redirect(
 					`http://localhost:5173/success?message=${data.statusMessage}&amount=${data.amount}&creditsBought=${transactionData.credits}&creditsNow=${updatedUserDataInDB.creditBalance}`
 				);
-
-				// `executePayment` successfull, redirect to success page with trxId
-				// return res.redirect(
-				// 	`${process.env.FRONTEND_BASE_URL}/success?message=${status}&trxId=${data.trxID}`
-				// );
 			} else {
-				// `executePayment` not successfull
-				// return res.redirect(
-				// 	`${process.env.FRONTEND_BASE_URL}/error?message=${status}&messageFromMe=executePaymentUnsuccessfull`
-				// );
+				return res.redirect(
+					`http://localhost:5173/error?message=${status}&messageFromMe=executePaymentUnsuccessfull`
+				);
 			}
 		} catch (error) {
 			return res.redirect(
-				// error while performing `executePayment`
-				`${process.env.FRONTEND_BASE_URL}/error?message=${error.message}`
+				`http://localhost:5173/error?message=${error.message}`
 			);
 		}
 	}

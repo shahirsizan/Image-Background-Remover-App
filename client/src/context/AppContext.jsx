@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 export const AppContext = createContext();
 
 const AppContextProvider = (props) => {
+	const [isLoading, setIsLoading] = useState(true);
 	const [credit, setCredit] = useState(0);
 	const [image, setImage] = useState(false);
 	const [resultImage, setResultImage] = useState(false);
@@ -20,6 +21,8 @@ const AppContextProvider = (props) => {
 	const { openSignIn } = useClerk();
 
 	const loadCreditsData = async () => {
+		console.log("in loadCreditsData");
+
 		try {
 			const token = await getToken();
 
@@ -38,6 +41,8 @@ const AppContextProvider = (props) => {
 			// if success
 			if (response.data.success) {
 				setCredit(response.data.userCredits);
+				setIsLoading(false);
+				console.log("made false");
 			}
 			// if failure
 			else {
@@ -115,6 +120,8 @@ const AppContextProvider = (props) => {
 		removeBg,
 		resultImage,
 		setResultImage,
+		isLoading,
+		setIsLoading,
 	};
 
 	return (

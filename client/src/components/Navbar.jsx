@@ -4,20 +4,15 @@ import { useClerk, UserButton, useUser } from "@clerk/clerk-react";
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
 import { useEffect } from "react";
+import { useState } from "react";
 
 const Navbar = () => {
-	const { credit, loadCreditsData } = useContext(AppContext);
+	const { credit } = useContext(AppContext);
 
 	const navigate = useNavigate();
 
 	const { openSignIn } = useClerk();
 	const { isSignedIn, user } = useUser();
-
-	useEffect(() => {
-		if (isSignedIn) {
-			loadCreditsData();
-		}
-	}, [isSignedIn]);
 
 	return (
 		<div className="flex items-center justify-between mx-4 py-3 lg:mx-44">
