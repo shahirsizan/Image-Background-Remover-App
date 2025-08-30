@@ -1,8 +1,7 @@
 import { Webhook } from "svix";
 import userModel from "../models/userModel.js";
 
-// API to sync Clerk User with mongo database
-// at http://localhost:4000/api/user/webhooks
+// Triggered upon user-creation in Clerk
 const clerkWebhooks = async (req, res) => {
 	try {
 		// Create an svix instance with clerk webhook secret.

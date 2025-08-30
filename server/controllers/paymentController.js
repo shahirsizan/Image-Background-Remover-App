@@ -39,8 +39,6 @@ export const payment_create = async (req, res) => {
 	// clerkId = req.user.clerkId;
 	const { id_token } = req.bkash;
 
-	// console.log("oiiiiiiiiii");
-
 	let plan, credits, amount;
 	switch (planId) {
 		case "Basic":
@@ -64,11 +62,9 @@ export const payment_create = async (req, res) => {
 	/** Returns the number of milliseconds elapsed since January 1, 1970 */
 	const date = Date.now();
 
-	// console.log("heyyyyyyyyyyy");
-
 	try {
 		const { data } = await axios.post(
-			"https://tokenized.sandbox.bka.sh/v1.2.0-beta/tokenized/checkout/create",
+			process.env.bkash_create_payment_url,
 			{
 				mode: "0011",
 				payerReference: " ",
@@ -77,7 +73,7 @@ export const payment_create = async (req, res) => {
 
 				// callbackURL: `https://image-background-remover-app-gs-aug.vercel.app/api/bkash/payment/callback`,
 				// hobe niche
-				callbackURL: `http://localhost:4000/api/bkash/payment/callback`,
+				callbackURL: `http://image-background-remover-app-gs-aug.vercel.app/api/bkash/payment/callback`,
 				amount: amount,
 				currency: "BDT",
 				intent: "sale",
@@ -88,7 +84,7 @@ export const payment_create = async (req, res) => {
 					"Content-Type": "application/json",
 					Accept: "application/json",
 					Authorization: id_token,
-					"X-App-Key": "4f6o0cjiki2rfm34kfdadl1eqq",
+					"X-App-Key": process.env.bkash_api_key,
 				},
 			}
 		);
@@ -110,8 +106,6 @@ export const payment_create = async (req, res) => {
 		//   statusCode: '0000',
 		//   statusMessage: 'Successful'
 		// }
-
-		// console.log("heiiiiiiiiiyaaaaaaaa");
 
 		transactionData = {
 			date: date,
@@ -145,6 +139,7 @@ export const call_back = async (req, res) => {
 
 	// if status not-success, redirect to error page
 	if (status === "cancel" || status === "failure") {
+		// niche process.env.FRONTEND_URI dite hobe. Make sure .env file update korechi
 		return res.redirect(`http://localhost:5173/error?message=${status}`);
 	}
 
@@ -154,7 +149,7 @@ export const call_back = async (req, res) => {
 			const id_token = req.bkash.id_token;
 
 			const { data } = await axios.post(
-				"https://tokenized.sandbox.bka.sh/v1.2.0-beta/tokenized/checkout/execute",
+				process.env.bkash_execute_payment_url,
 				{
 					paymentID: paymentID,
 				},
@@ -162,7 +157,7 @@ export const call_back = async (req, res) => {
 					headers: {
 						Accept: "application/json",
 						Authorization: id_token,
-						"X-App-Key": "4f6o0cjiki2rfm34kfdadl1eqq",
+						"X-App-Key": process.env.bkash_api_key,
 					},
 				}
 			);
@@ -233,14 +228,17 @@ export const call_back = async (req, res) => {
 				);
 
 				return res.redirect(
+					// niche process.env.FRONTEND_URI dite hobe. Make sure .env file update korechi
 					`http://localhost:5173/success?message=${data.statusMessage}&amount=${data.amount}&creditsBought=${transactionData.credits}&creditsNow=${updatedUserDataInDB.creditBalance}`
 				);
 			} else {
+				// niche process.env.FRONTEND_URI dite hobe. Make sure .env file update korechi
 				return res.redirect(
 					`http://localhost:5173/error?message=${status}&messageFromMe=executePaymentUnsuccessfull`
 				);
 			}
 		} catch (error) {
+			// niche process.env.FRONTEND_URI dite hobe. Make sure .env file update korechi
 			return res.redirect(
 				`http://localhost:5173/error?message=${error.message}`
 			);

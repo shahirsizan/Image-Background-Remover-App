@@ -6,12 +6,11 @@ import userRouter from "./routes/userRoutes.js";
 import imageRouter from "./routes/imagesRoutes.js";
 import bkashRouter from "./routes/bkashRoutes.js";
 
-// App Config
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT;
 const app = express();
+
 await connectDB();
 
-// Initialized Middlewares
 app.use(express.json());
 app.use(
 	cors({
@@ -20,8 +19,7 @@ app.use(
 	})
 );
 
-// API Routes
-app.get("/", (req, res) => res.send("API is working."));
+app.get("/", (req, res) => res.send("API working."));
 app.use("/api/user", userRouter);
 app.use("/api/image", imageRouter);
 app.use("/api/bkash", bkashRouter);

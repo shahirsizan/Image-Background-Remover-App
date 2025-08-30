@@ -3,23 +3,18 @@ import axios from "axios";
 // here we will utilize the `req.header`. No need to use third party library.
 
 export const bkash_auth = async (req, res, next) => {
-	// ⚠️⚠️⚠️ CAUTION. Because the backend is hosted in vercel
-	// and env variables not defined in vercel yet,
-	// have to explicitely write the env variables here
-	// console.log("okkkkkk");
-
 	const { data } = await axios.post(
-		"https://tokenized.sandbox.bka.sh/v1.2.0-beta/tokenized/checkout/token/grant",
+		process.env.bkash_grant_token_url,
 		{
-			app_key: "4f6o0cjiki2rfm34kfdadl1eqq",
-			app_secret: "2is7hdktrekvrbljjh44ll3d9l1dtjo4pasmjvs5vl5qr3fug4b",
+			app_key: process.env.bkash_api_key,
+			app_secret: process.env.bkash_secret_key,
 		},
 		{
 			headers: {
 				"Content-Type": "application/json",
 				Accept: "application/json",
-				username: "sandboxTokenizedUser02",
-				password: "sandboxTokenizedUser02@12345",
+				username: process.env.bkash_username,
+				password: process.env.bkash_password,
 			},
 		}
 	);
