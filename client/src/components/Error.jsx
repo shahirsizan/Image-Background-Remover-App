@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 const Error = () => {
 	const urlparams = new URLSearchParams(window.location.search);
 	const message = urlparams.get("message");
+	const messageFromMe = urlparams.get("messageFromMe");
 	const navigate = useNavigate();
 
 	return (
@@ -11,6 +12,7 @@ const Error = () => {
 			<div className="flex flex-col text-center">
 				<div className="font-bold text-3xl">
 					Payment status: {message}
+					message from me: {messageFromMe}
 				</div>
 
 				<button

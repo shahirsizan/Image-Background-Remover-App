@@ -161,7 +161,12 @@ export const call_back = async (req, res) => {
 				}
 			);
 
-			// `data` after payment-execution:
+			console.log(
+				"Data after calling `bkash_execute_payment_url`: ",
+				data
+			);
+
+			// `Data after calling `bkash_execute_payment_url`:
 			// console.log("Data after payment-execution: ", data);
 			// 			{
 			//   paymentID: 'TR0011umOKR5N1756397920069',
@@ -231,12 +236,12 @@ export const call_back = async (req, res) => {
 				);
 			} else {
 				return res.redirect(
-					`${process.env.FRONTEND_URI}/error?message=${status}&messageFromMe=executePaymentUnsuccessfull`
+					`${process.env.FRONTEND_URI}/error?message=${status}&messageFromMe=bkash_execute_payment_url_failed`
 				);
 			}
 		} catch (error) {
 			return res.redirect(
-				`${process.env.FRONTEND_URI}/error?message=${error.message}`
+				`${process.env.FRONTEND_URI}/error?message=${error.message}&messageFromMe=some_error_during_bkash_execute_payment_url`
 			);
 		}
 	}
