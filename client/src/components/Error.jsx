@@ -4,15 +4,16 @@ import { useNavigate } from "react-router-dom";
 const Error = () => {
 	const urlparams = new URLSearchParams(window.location.search);
 	const message = urlparams.get("message");
-	const messageFromMe = urlparams.get("messageFromMe");
 	const navigate = useNavigate();
 
 	return (
 		<div className="flex flex-1 justify-center items-center">
 			<div className="flex flex-col text-center items-center justify-center">
 				<div className="flex flex-col font-bold text-3xl">
-					<p>Payment status: {message}</p>
-					<p>message from me: {messageFromMe}</p>
+					<p>
+						Payment status:{" "}
+						<span className="text-red-600">{message}</span>
+					</p>
 				</div>
 
 				<button

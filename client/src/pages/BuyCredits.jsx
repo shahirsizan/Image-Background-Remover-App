@@ -90,7 +90,7 @@ const BuyCredits = () => {
 						<div className="flex justify-center gap-3 ">
 							{/* bkash */}
 							<button
-								className="bg-green-600 text-white mt-3 rounded-md px-3 py-2 hover:scale-105 transition-all"
+								className="bg-green-600 text-white mt-3 rounded-md px-3 py-2 cursor-pointer hover:scale-105 transition-all"
 								onClick={() => {
 									pay(selectedItemId);
 								}}
@@ -103,18 +103,18 @@ const BuyCredits = () => {
 						<div className="bg-amber-100 text-amber-900 p-4 rounded-md border border-amber-300  shadow-sm leading-7 mt-4">
 							<p>
 								১। Successfull transaction টেস্ট করার জন্য{" "}
-								<strong>01929918378</strong> ব্যবহার করুন
+								<strong>01929918378</strong>
 							</p>
 							<p>
 								২। Insufficient balance টেস্ট করার জন্য{" "}
-								<strong>01823074817</strong> ব্যবহার করুন
+								<strong>01823074817</strong>
 							</p>
 							<p>
-								৩। উভয় ক্ষেত্রে Verification code{" "}
-								<strong>123456</strong>{" "}
+								৩। Verification code উভয় ক্ষেত্রে{" "}
+								<strong>123456</strong>
 							</p>
 							<p>
-								৪। উভয় ক্ষেত্রে PIN <strong>12121</strong>{" "}
+								৪। PIN উভয় ক্ষেত্রে <strong>12121</strong>
 							</p>
 						</div>
 					</div>
