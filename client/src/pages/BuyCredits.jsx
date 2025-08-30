@@ -12,7 +12,8 @@ const BuyCredits = () => {
 
 			// "https://image-background-remover-app-gs-aug.vercel.app/api/bkash/payment/create" dite hobe niche
 			const { data } = await axios.post(
-				"http://localhost:4000/api/bkash/payment/create",
+				`${import.meta.env.VITE_BACKEND_URI}/api/bkash/payment/create`,
+				// "http://localhost:4000/api/bkash/payment/create",
 				{
 					planId: planId,
 				},
@@ -50,13 +51,18 @@ const BuyCredits = () => {
 						<p className="mt-6">
 							<span>৳{item.price}</span> / {item.credits} credits
 						</p>
+
 						<button
-							className="w-full bg-gray-800 text-white mt-8 text-sm border rounded-md py-3 min-w-35"
+							className="flex items-center justify-center w-full md:gap-2 bg-white text-gray-800 mt-8 text-md border rounded-md py-3 min-w-35 cursor-pointer hover:scale-105 transition-all"
 							onClick={(e) => {
 								pay(e, item.id);
 							}}
 						>
-							Purchase
+							<img
+								src="https://freepnglogo.com/images/all_img/1701541855%E0%A6%AC%E0%A6%BF%E0%A6%95%E0%A6%BE%E0%A6%B6-%E0%A6%B2%E0%A6%97%E0%A7%8B.png"
+								className="w-[55px] md:w-[70px]"
+							/>
+							<span className="text-sm md:text-xl">Pay</span>
 						</button>
 					</div>
 				))}

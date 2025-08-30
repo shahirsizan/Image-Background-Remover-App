@@ -140,7 +140,9 @@ export const call_back = async (req, res) => {
 	// if status not-success, redirect to error page
 	if (status === "cancel" || status === "failure") {
 		// niche process.env.FRONTEND_URI dite hobe. Make sure .env file update korechi
-		return res.redirect(`http://localhost:5173/error?message=${status}`);
+		return res.redirect(
+			`${process.env.FRONTEND_URI}/error?message=${status}`
+		);
 	}
 
 	// if status success, call executePayment API
@@ -229,18 +231,18 @@ export const call_back = async (req, res) => {
 
 				return res.redirect(
 					// niche process.env.FRONTEND_URI dite hobe. Make sure .env file update korechi
-					`http://localhost:5173/success?message=${data.statusMessage}&amount=${data.amount}&creditsBought=${transactionData.credits}&creditsNow=${updatedUserDataInDB.creditBalance}`
+					`${process.env.FRONTEND_URI}/success?message=${data.statusMessage}&amount=${data.amount}&creditsBought=${transactionData.credits}&creditsNow=${updatedUserDataInDB.creditBalance}`
 				);
 			} else {
 				// niche process.env.FRONTEND_URI dite hobe. Make sure .env file update korechi
 				return res.redirect(
-					`http://localhost:5173/error?message=${status}&messageFromMe=executePaymentUnsuccessfull`
+					`${process.env.FRONTEND_URI}/error?message=${status}&messageFromMe=executePaymentUnsuccessfull`
 				);
 			}
 		} catch (error) {
 			// niche process.env.FRONTEND_URI dite hobe. Make sure .env file update korechi
 			return res.redirect(
-				`http://localhost:5173/error?message=${error.message}`
+				`${process.env.FRONTEND_URI}/error?message=${error.message}`
 			);
 		}
 	}

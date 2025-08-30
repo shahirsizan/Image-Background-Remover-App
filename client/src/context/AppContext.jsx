@@ -13,6 +13,8 @@ const AppContextProvider = (props) => {
 	const [image, setImage] = useState(false);
 	const [resultImage, setResultImage] = useState(false);
 
+	// nicher ta local machine e run korar somoy use korbo
+	// const backendUrl = "http://localhost:4000";
 	const backendUrl = import.meta.env.VITE_BACKEND_URI;
 	const navigate = useNavigate();
 
