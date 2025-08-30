@@ -9,7 +9,7 @@ const Error = () => {
 
 	return (
 		<div className="flex flex-1 justify-center items-center">
-			<div className="flex flex-col text-center">
+			<div className="flex flex-col text-center items-center justify-center">
 				<div className="flex flex-col font-bold text-3xl">
 					<p>Payment status: {message}</p>
 					<p>message from me: {messageFromMe}</p>
