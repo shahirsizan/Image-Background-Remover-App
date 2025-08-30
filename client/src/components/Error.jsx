@@ -19,7 +19,7 @@ const Error = () => {
 					onClick={() => {
 						navigate("/");
 					}}
-					className="max-w-20 mt-10 px-7 py-3 border rounded-full bg-blue-500 text-white font-bold cursor-pointer shadow-xl"
+					className="min-w-24 mt-10 px-7 py-3 border rounded-full bg-blue-500 text-white font-bold cursor-pointer shadow-xl"
 				>
 					Home
 				</button>

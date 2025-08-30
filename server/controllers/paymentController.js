@@ -236,12 +236,12 @@ export const call_back = async (req, res) => {
 				);
 			} else {
 				return res.redirect(
-					`${process.env.FRONTEND_URI}/error?message=${data.statusMessage}&messageFromMe=bkash_execute_payment_url_failed`
+					`${process.env.FRONTEND_URI}/error?message=${data.statusMessage}`
 				);
 			}
 		} catch (error) {
 			return res.redirect(
-				`${process.env.FRONTEND_URI}/error?message=${error.message}&messageFromMe=some_error_during_bkash_execute_payment_url`
+				`${process.env.FRONTEND_URI}/error?message=${error.message}`
 			);
 		}
 	}
