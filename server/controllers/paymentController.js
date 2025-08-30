@@ -3,9 +3,6 @@ import { v4 as uuidv4 } from "uuid";
 import userModel from "../models/userModel.js";
 import transactionModel from "../models/transactionModel.js";
 
-var clerkId;
-var transactionData;
-
 export const payment_create = async (req, res) => {
 	// console.log("inside paymentController.js -> req.user is: ", req.user);
 	// THE `req` OBJECT:
@@ -107,7 +104,7 @@ export const payment_create = async (req, res) => {
 		//   statusMessage: 'Successful'
 		// }
 
-		transactionData = {
+		const transactionData = {
 			date: date,
 			paymentId: data.paymentID,
 			clerkId: req.user.clerkId,
@@ -230,17 +227,14 @@ export const call_back = async (req, res) => {
 				);
 
 				return res.redirect(
-					// niche process.env.FRONTEND_URI dite hobe. Make sure .env file update korechi
-					`${process.env.FRONTEND_URI}/success?message=${data.statusMessage}&amount=${data.amount}&creditsBought=${transactionData.credits}&creditsNow=${updatedUserDataInDB.creditBalance}`
+					`${process.env.FRONTEND_URI}/success?message=${data.statusMessage}&amount=${data.amount}&creditsBought=${transactionDataInDB.credits}&creditsNow=${updatedUserDataInDB.creditBalance}`
 				);
 			} else {
-				// niche process.env.FRONTEND_URI dite hobe. Make sure .env file update korechi
 				return res.redirect(
 					`${process.env.FRONTEND_URI}/error?message=${status}&messageFromMe=executePaymentUnsuccessfull`
 				);
 			}
 		} catch (error) {
-			// niche process.env.FRONTEND_URI dite hobe. Make sure .env file update korechi
 			return res.redirect(
 				`${process.env.FRONTEND_URI}/error?message=${error.message}`
 			);
