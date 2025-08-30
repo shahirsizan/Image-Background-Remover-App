@@ -236,7 +236,7 @@ export const call_back = async (req, res) => {
 				);
 			} else {
 				return res.redirect(
-					`${process.env.FRONTEND_URI}/error?message=${status}&messageFromMe=bkash_execute_payment_url_failed`
+					`${process.env.FRONTEND_URI}/error?message=${data.statusMessage}&messageFromMe=bkash_execute_payment_url_failed`
 				);
 			}
 		} catch (error) {
