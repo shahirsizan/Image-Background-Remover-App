@@ -3,14 +3,14 @@ import { assets } from "../assets/assets";
 const Steps = () => {
 	return (
 		<div className="STEPS py-12 xl:py-28">
-			<h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-center">
+			<h1 className="uppercase text-4xl lg:text-5xl xl:text-6xl font-bold text-center">
 				Steps to remove{" "}
 				<span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500">
 					background
 				</span>
 			</h1>
 
-			<div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-16 xl:mt-24 justify-center text-sm sm:text-lg">
+			<div className="uppercase grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 xl:mt-12 justify-center text-sm sm:text-lg">
 				<div className="flex flex-col items-center justify-center gap-2 sm:gap-4 bg-white rounded-lg drop-shadow-lg p-4 sm:p-5">
 					<img src={assets.upload_icon} className="max-w-9" />
 					<div>

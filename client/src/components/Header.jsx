@@ -6,9 +6,9 @@ const Header = () => {
 	const { removeBg } = useContext(AppContext);
 
 	return (
-		<div className="HEADER flex max-sm:flex-col-reverse items-center justify-center gap-y-5 mt-10 lg:mt-20">
+		<div className="HEADER flex max-sm:flex-col-reverse items-center justify-center gap-y-5 mt-10 md:mt-14 lg:mt-20">
 			<div>
-				<h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-center">
+				<h1 className="uppercase text-4xl lg:text-5xl xl:text-6xl font-bold text-center">
 					Remove{" "}
 					<span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500">
 						background
@@ -16,9 +16,8 @@ const Header = () => {
 					from image
 				</h1>
 
-				<p className="my-6 text-gray-500 md:text-xl text-center">
-					Upload an image and get a clean, transparent background in
-					seconds
+				<p className=" uppercase my-6 text-gray-500 md:text-xl text-center">
+					Upload an image and get transparent background
 				</p>
 
 				<div className="text-center sm:mb-7 sm:mt-7">
@@ -37,8 +36,8 @@ const Header = () => {
 						className="inline-flex items-center gap-3 px-8 py-4 rounded-full cursor-pointer bg-blue-500 transition-all hover:scale-105 "
 					>
 						<img src={assets.upload_btn_icon} alt="" />
-						<p className="text-white text-sm md:text-lg">
-							Upload your image
+						<p className=" uppercase text-white text-sm md:text-lg">
+							Upload image
 						</p>
 					</label>
 				</div>
