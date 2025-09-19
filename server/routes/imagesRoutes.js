@@ -1,11 +1,21 @@
 import express from "express";
 import authUser from "../middlewares/auth.js";
 import upload from "../middlewares/multer.js";
-import { removeBgImage } from "../controllers/ImageController.js";
+import {
+	removeBgImage,
+	removeBgImageTest,
+} from "../controllers/ImageController.js";
 
 const imageRouter = express.Router();
 
-imageRouter.post(`/remove-bg`, upload.single("image"), authUser, removeBgImage);
+// imageRouter.post(`/remove-bg`, upload.single("image"), authUser, removeBgImage);
+imageRouter.post(
+	`/remove-bg`,
+	upload.single("image"),
+	authUser,
+	removeBgImageTest
+);
+
 /**
  * Above single("image") processes the single file associated with the
  * given form field. The `request` object will be populated with
