@@ -6,7 +6,7 @@ import userRouter from "./routes/userRoutes.js";
 import imageRouter from "./routes/imagesRoutes.js";
 import bkashRouter from "./routes/bkashRoutes.js";
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 4000;
 const app = express();
 
 await connectDB();
