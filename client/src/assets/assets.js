@@ -42,19 +42,19 @@ export const plans = [
 	{
 		id: "Basic",
 		price: 10,
-		credits: 2,
+		credits: 1,
 		desc: "Best for personal use.",
 	},
 	{
 		id: "Advanced",
 		price: 20,
-		credits: 3,
+		credits: 2,
 		desc: "Best for business use.",
 	},
 	{
 		id: "Business",
 		price: 30,
-		credits: 5,
+		credits: 3,
 		desc: "Best for enterprise use.",
 	},
 ];
