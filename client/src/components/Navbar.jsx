@@ -54,7 +54,7 @@ const Navbar = () => {
 				</div>
 			) : (
 				<button
-					className="flex items-center gap-2 sm:gap-4 bg-black text-sm sm:text-lg text-white px-2 lg:px-6 py-2 lg:py-3 rounded-full"
+					className="flex items-center gap-2 sm:gap-4 bg-black text-sm sm:text-lg text-white px-2 lg:px-6 py-2 lg:py-3 rounded-full hover:scale-105 transition-all cursor-pointer"
 					onClick={() => {
 						openSignIn({ forceRedirectUrl: "/" });
 					}}
