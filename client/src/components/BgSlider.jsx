@@ -7,7 +7,7 @@ const BgSlider = () => {
 	return (
 		<div className=" py-12 xl:py-28">
 			{/* title */}
-			<h1 className="mb-10 text-4xl lg:text-5xl xl:text-6xl font-bold text-center">
+			<h1 className="uppercase mb-10 text-4xl lg:text-5xl xl:text-6xl font-bold text-center">
 				<span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500">
 					Background
 				</span>{" "}
