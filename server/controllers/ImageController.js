@@ -2,6 +2,7 @@ import axios from "axios";
 import fs from "fs";
 import FormData from "form-data";
 import userModel from "../models/userModel.js";
+import { rembg } from "@remove-background-ai/rembg.js";
 
 export const removeBgImage = async (req, res) => {
 	try {
@@ -71,6 +72,78 @@ export const removeBgImage = async (req, res) => {
 		res.json({
 			success: true,
 			resultImage: resultImage,
+			creditBalance: updatedUser.creditBalance,
+			message: "Background Removed",
+		});
+	} catch (error) {
+		console.log("Error in removeBgImage controller: ", error.message);
+		res.json({ success: false, message: error.message });
+	}
+};
+
+export const removeBgImageTest = async (req, res) => {
+	try {
+		const { user } = req;
+
+		// user er balance check koro
+		if (user.creditBalance === 0) {
+			return res.json({
+				success: false,
+				message: "No Credit Balance",
+				creditBalance: user.creditBalance,
+			});
+		}
+
+		// from multer middleware, `req` object is populated with `file` object containing information about the file.
+		if (!req.file) {
+			return res
+				.status(400)
+				.json({ success: false, message: "No file uploaded!" });
+		}
+
+		// console.log("req.file: ", req.file);
+		// console.log(req.file);
+		// {
+		//   fieldname: 'image',
+		//   originalname: 'zisan picture.jpg',
+		//   encoding: '7bit',
+		//   mimetype: 'image/jpeg',
+		//   buffer: <Buffer ff d8 ff e0 ...99253 more bytes>
+		//   size: 99303
+		// }
+
+		const imageBuffer = req.file.buffer;
+		const { base64Image } = await rembg({
+			apiKey: process.env.REMBG_API,
+			inputImage: imageBuffer,
+			options: { format: "png", returnBase64: true },
+		});
+
+		// Instead of: await userModel.findByIdAndUpdate(user._id, { creditBalance: user.creditBalance - 1 });
+		// Use an atomic operator:
+		const updatedUser = await userModel.findByIdAndUpdate(
+			user._id,
+			{ $inc: { creditBalance: -1 } }, // Use $inc to atomically decrement
+			{ new: true } // Return the updated document
+		);
+
+		// Convert the buffer to a base64 string
+		// const base64Image = imageBuffer.toString("base64");
+
+		// Construct the data URL
+		// const resultImage = `data:${req.file.mimetype};base64,${base64Image}`;
+		// console.log(resultImage);
+
+		// await new Promise((resolve) => {
+		// 	return setTimeout(() => {
+		// 		resolve();
+		// 	}, 5000);
+		// });
+
+		res.json({
+			success: true,
+			resultImage: base64Image,
+			// resultImage: resultImage,
 			creditBalance: updatedUser.creditBalance,
 			message: "Background Removed",
 		});

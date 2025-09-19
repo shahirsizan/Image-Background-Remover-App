@@ -40,17 +40,17 @@ export const payment_create = async (req, res) => {
 	switch (planId) {
 		case "Basic":
 			plan = "Basic";
-			credits = 2;
+			credits = 1;
 			amount = 10;
 			break;
 		case "Advanced":
 			plan = "Basic";
-			credits = 3;
+			credits = 2;
 			amount = 20;
 			break;
 		case "Business":
 			plan = "Basic";
-			credits = 5;
+			credits = 3;
 			amount = 30;
 			break;
 		default:
@@ -70,7 +70,8 @@ export const payment_create = async (req, res) => {
 
 				// callbackURL: `https://image-background-remover-app-gs-aug.vercel.app/api/bkash/payment/callback`,
 				// hobe niche
-				callbackURL: `http://image-background-remover-app-gs-aug.vercel.app/api/bkash/payment/callback`,
+				// callbackURL: `http://image-background-remover-app-gs-aug.vercel.app/api/bkash/payment/callback`,
+				callbackURL: `http://localhost:4000/api/bkash/payment/callback`,
 				amount: amount,
 				currency: "BDT",
 				intent: "sale",
@@ -138,7 +139,8 @@ export const call_back = async (req, res) => {
 	if (status === "cancel" || status === "failure") {
 		// niche process.env.FRONTEND_URI dite hobe. Make sure .env file update korechi
 		return res.redirect(
-			`${process.env.FRONTEND_URI}/error?message=${status}`
+			// `${process.env.FRONTEND_URI}/error?message=${status}`
+			`http://localhost:5173/error?message=${status}`
 		);
 	}
 
@@ -232,16 +234,19 @@ export const call_back = async (req, res) => {
 				);
 
 				return res.redirect(
-					`${process.env.FRONTEND_URI}/success?message=${data.statusMessage}&amount=${data.amount}&creditsBought=${transactionDataInDB.credits}&creditsNow=${updatedUserDataInDB.creditBalance}`
+					// `${process.env.FRONTEND_URI}/success?message=${data.statusMessage}&amount=${data.amount}&creditsBought=${transactionDataInDB.credits}&creditsNow=${updatedUserDataInDB.creditBalance}`
+					`http://localhost:5173/success?message=${data.statusMessage}&amount=${data.amount}&creditsBought=${transactionDataInDB.credits}&creditsNow=${updatedUserDataInDB.creditBalance}`
 				);
 			} else {
 				return res.redirect(
-					`${process.env.FRONTEND_URI}/error?message=${data.statusMessage}`
+					// `${process.env.FRONTEND_URI}/error?message=${data.statusMessage}`
+					`http://localhost:5173/error?message=${data.statusMessage}`
 				);
 			}
 		} catch (error) {
 			return res.redirect(
-				`${process.env.FRONTEND_URI}/error?message=${error.message}`
+				// `${process.env.FRONTEND_URI}/error?message=${error.message}`
+				`http://localhost:5173/error?message=${error.message}`
 			);
 		}
 	}
