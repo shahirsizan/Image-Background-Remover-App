@@ -19,7 +19,7 @@ const Navbar = () => {
 	}, [isSignedIn]);
 
 	return (
-		<div className="sticky top-0 z-50 bg-white/80 backdrop-blur-sm shadow-sm flex items-center justify-between px-[5vw] md:px-[8vw] lg:px-[12vw] py-2">
+		<div className="NAVBAR sticky top-0 z-50 bg-white/80 backdrop-blur-sm shadow-sm flex items-center justify-between px-[5vw] md:px-[8vw] lg:px-[12vw] py-2">
 			{/* left logo */}
 			<img
 				onClick={() => navigate("/")}

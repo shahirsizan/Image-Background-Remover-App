@@ -5,7 +5,7 @@ const BgSlider = () => {
 	const [sliderPosition, setSliderPosition] = useState(50);
 
 	return (
-		<div className="pb-10 md:py-20 px-4 lg:px-44">
+		<div className="pb-10 md:py-20">
 			{/* title */}
 			<h1 className="mb-10 text-4xl lg:text-5xl xl:text-6xl font-bold text-center">
 				<span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500">

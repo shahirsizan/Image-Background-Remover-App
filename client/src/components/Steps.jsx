@@ -2,7 +2,7 @@ import { assets } from "../assets/assets";
 
 const Steps = () => {
 	return (
-		<div className="px-4 lg:px-44 py-20 xl:py-40">
+		<div className="STEPS py-12 xl:py-28">
 			<h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-center">
 				Steps to remove{" "}
 				<span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500">

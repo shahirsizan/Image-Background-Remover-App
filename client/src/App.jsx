@@ -10,7 +10,7 @@ import ErrorPage from "./pages/ErrorPage";
 
 const App = () => {
 	return (
-		<div className="min-h-screen flex flex-col bg-slate-50">
+		<div className="min-h-screen flex flex-col bg-slate-50 relative">
 			<ToastContainer position="bottom-right" />
 			<Navbar />
 			<Routes>

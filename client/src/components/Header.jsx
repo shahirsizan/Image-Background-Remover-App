@@ -6,7 +6,7 @@ const Header = () => {
 	const { removeBg } = useContext(AppContext);
 
 	return (
-		<div className="flex max-sm:flex-col-reverse items-center justify-center gap-y-10 px-4 lg:px-44 mt-10 lg:mt-20">
+		<div className="HEADER flex max-sm:flex-col-reverse items-center justify-center gap-y-5 mt-10 lg:mt-20">
 			<div>
 				<h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-center">
 					Remove{" "}
@@ -21,7 +21,7 @@ const Header = () => {
 					seconds
 				</p>
 
-				<div className="text-center sm:mb-16 sm:mt-14">
+				<div className="text-center sm:mb-7 sm:mt-7">
 					<input
 						onChange={(e) => {
 							// console.log(e.target.files[0]);
