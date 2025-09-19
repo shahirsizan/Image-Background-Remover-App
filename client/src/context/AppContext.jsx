@@ -32,7 +32,7 @@ const AppContextProvider = (props) => {
 			}
 
 			const response = await axios.get(
-				backend_base_url + `/api/user/credits`,
+				`${backend_base_url}/api/user/credits`,
 				{
 					headers: {
 						token: token,
