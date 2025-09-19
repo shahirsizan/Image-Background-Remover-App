@@ -2,6 +2,7 @@ import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import userModel from "../models/userModel.js";
 import transactionModel from "../models/transactionModel.js";
+import { frontend_base_url, backend_base_url } from "../workMode.js";
 
 export const payment_create = async (req, res) => {
 	// console.log("inside paymentController.js -> req.user is: ", req.user);
@@ -71,7 +72,7 @@ export const payment_create = async (req, res) => {
 				// callbackURL: `https://image-background-remover-app-gs-aug.vercel.app/api/bkash/payment/callback`,
 				// hobe niche
 				// callbackURL: `http://image-background-remover-app-gs-aug.vercel.app/api/bkash/payment/callback`,
-				callbackURL: `http://localhost:4000/api/bkash/payment/callback`,
+				callbackURL: `${backend_base_url}/api/bkash/payment/callback`,
 				amount: amount,
 				currency: "BDT",
 				intent: "sale",
@@ -140,7 +141,7 @@ export const call_back = async (req, res) => {
 		// niche process.env.FRONTEND_URI dite hobe. Make sure .env file update korechi
 		return res.redirect(
 			// `${process.env.FRONTEND_URI}/error?message=${status}`
-			`http://localhost:5173/error?message=${status}`
+			`${frontend_base_url}/error?message=${status}`
 		);
 	}
 
@@ -235,18 +236,18 @@ export const call_back = async (req, res) => {
 
 				return res.redirect(
 					// `${process.env.FRONTEND_URI}/success?message=${data.statusMessage}&amount=${data.amount}&creditsBought=${transactionDataInDB.credits}&creditsNow=${updatedUserDataInDB.creditBalance}`
-					`http://localhost:5173/success?message=${data.statusMessage}&amount=${data.amount}&creditsBought=${transactionDataInDB.credits}&creditsNow=${updatedUserDataInDB.creditBalance}`
+					`${frontend_base_url}/success?message=${data.statusMessage}&amount=${data.amount}&creditsBought=${transactionDataInDB.credits}&creditsNow=${updatedUserDataInDB.creditBalance}`
 				);
 			} else {
 				return res.redirect(
 					// `${process.env.FRONTEND_URI}/error?message=${data.statusMessage}`
-					`http://localhost:5173/error?message=${data.statusMessage}`
+					`${frontend_base_url}/error?message=${data.statusMessage}`
 				);
 			}
 		} catch (error) {
 			return res.redirect(
 				// `${process.env.FRONTEND_URI}/error?message=${error.message}`
-				`http://localhost:5173/error?message=${error.message}`
+				`${frontend_base_url}/error?message=${error.message}`
 			);
 		}
 	}

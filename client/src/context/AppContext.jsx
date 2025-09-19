@@ -4,6 +4,7 @@ import axios from "axios";
 import { createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { backend_base_url } from "../../../server/workMode";
 
 export const AppContext = createContext();
 
@@ -13,9 +14,6 @@ const AppContextProvider = (props) => {
 	const [image, setImage] = useState(false);
 	const [resultImage, setResultImage] = useState(false);
 
-	// nicher ta local machine e run korar somoy use korbo
-	// const backendUrl = "http://localhost:4000";
-	const backendUrl = import.meta.env.VITE_BACKEND_URI;
 	const navigate = useNavigate();
 
 	const { getToken } = useAuth();
@@ -33,11 +31,14 @@ const AppContextProvider = (props) => {
 				return;
 			}
 
-			const response = await axios.get(backendUrl + `/api/user/credits`, {
-				headers: {
-					token: token,
-				},
-			});
+			const response = await axios.get(
+				backend_base_url + `/api/user/credits`,
+				{
+					headers: {
+						token: token,
+					},
+				}
+			);
 			// console.log("loadCreditsData -> response : ", response);
 
 			// if success
@@ -91,7 +92,7 @@ const AppContextProvider = (props) => {
 			formData.append("image", image);
 
 			const { data } = await axios.post(
-				backendUrl + "/api/image/remove-bg",
+				`${backend_base_url}/api/image/remove-bg`,
 				formData,
 				{ headers: { token } }
 			);
@@ -116,7 +117,7 @@ const AppContextProvider = (props) => {
 		credit,
 		setCredit,
 		loadCreditsData,
-		backendUrl,
+		backendUrl: backend_base_url,
 		image,
 		setImage,
 		removeBg,

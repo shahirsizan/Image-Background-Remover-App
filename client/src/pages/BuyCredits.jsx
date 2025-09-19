@@ -2,6 +2,7 @@ import { assets, plans } from "../assets/assets";
 import { useAuth } from "@clerk/clerk-react";
 import axios from "axios";
 import { useState } from "react";
+import { frontend_base_url, backend_base_url } from "../workMode";
 
 const BuyCredits = () => {
 	const [showPaymentOptionsModal, setShowPaymentOptionsModal] =
@@ -16,8 +17,8 @@ const BuyCredits = () => {
 
 			// "https://image-background-remover-app-gs-aug.vercel.app/api/bkash/payment/create" dite hobe niche
 			const { data } = await axios.post(
-				`${import.meta.env.VITE_BACKEND_URI}/api/bkash/payment/create`,
-				// "http://localhost:4000/api/bkash/payment/create",
+				// `${import.meta.env.VITE_BACKEND_URI}/api/bkash/payment/create`,
+				`${backend_base_url}/api/bkash/payment/create`,
 				{
 					planId: planId,
 				},
@@ -32,7 +33,7 @@ const BuyCredits = () => {
 	};
 
 	return (
-		<div className="relative min-h-[75vh] text-center pt-14 mb-10 lg:px-44">
+		<div className="relative min-h-[75vh] text-center pt-14 mb-10 px-[5vw] md:px-[8vw] lg:px-[12vw]">
 			<div className="flex justify-center items-center">
 				<span className="border border-gray-400 rounded-full px-4 sm:px-6 py-2 mb-6">
 					Our plans
@@ -103,7 +104,8 @@ const BuyCredits = () => {
 						<div className="bg-amber-100 text-amber-900 p-4 rounded-md border border-amber-300  shadow-sm leading-7 mt-4">
 							<p>
 								১। Successfull transaction টেস্ট করার জন্য{" "}
-								<strong>01929918378</strong>
+								<strong>01929918378</strong> অথবা{" "}
+								<strong>01770618575</strong>
 							</p>
 							<p>
 								২। Insufficient balance টেস্ট করার জন্য{" "}
